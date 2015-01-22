@@ -1,0 +1,19 @@
+#!/bin/sh
+# lowerit
+# convert all file names in the current directory to lower case
+# only operates on plain files--does not change the name of directories
+# will ask for verification before overwriting an existing file
+dir=${1:-'.'}
+files=$(find ${dir} -type f)
+for file in $files
+do
+    lc=$(echo $(basename $file) | tr '[A-Z]' '[a-z]')
+    filelc=$(dirname $file)/$lc
+    if [ $filelc != $file ]; then
+        if [ $(git rev-parse --is-inside-work-tree) ]; then
+            git mv $file $filelc
+        else
+            mv -i $file $filelc
+        fi
+    fi
+done

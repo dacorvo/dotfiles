@@ -1,0 +1,13 @@
+[user]
+	name = David Corvoysier
+	email = david.corvoysier@orange.com
+[core]
+	gitProxy = git-socks-wrapper
+	deltaBaseCacheLimit = 1G
+	excludesfile = ~/.gitignore
+[http]
+	sslverify = true
+[color]
+	ui = true
+[alias]
+	glog = log --pretty=oneline --abbrev-commit
