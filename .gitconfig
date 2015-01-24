@@ -1,8 +1,7 @@
 [user]
 	name = David Corvoysier
-	email = david.corvoysier@orange.com
+	email = david.corvoysier@gmail.com
 [core]
-	gitProxy = git-socks-wrapper
 	deltaBaseCacheLimit = 1G
 	excludesfile = ~/.gitignore
 [http]
