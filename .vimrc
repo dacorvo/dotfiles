@@ -5,6 +5,9 @@
 " Valloric:       https://github.com/Valloric/dotfile
 " Gmarik:         https://github.com/gmarik/vimfiles
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" This file is UTF-8
+scriptencoding utf-8
+set encoding=utf-8
 
 " Use Vim settings rather than vi ones
 set nocompatible
