@@ -9,7 +9,7 @@ These are just my dotfiles ...
 
 2. Update .bashrc
 
-    echo .bashrc >> ~/.bashrc
+    cat .bashrc >> ~/.bashrc
 
 3. Setup Git
 
