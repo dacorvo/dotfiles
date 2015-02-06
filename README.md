@@ -18,7 +18,7 @@ cat .bashrc >> ~/.bashrc
 3.Set dir colors
 
 ~~~
-cp .dir_colors ~
+cp .dircolors ~
 ~~~
 
 4.Setup Git
