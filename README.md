@@ -3,26 +3,32 @@ These are just my dotfiles ...
 
 ##Quick setup
 
-1. Install utility scripts
+1.Install utility scripts
 
 ~~~
 cp -r bin ~
 ~~~
 
-2. Update .bashrc
+2.Update .bashrc
 
 ~~~
 cat .bashrc >> ~/.bashrc
 ~~~
 
-3. Setup Git
+3.Set dir colors
+
+~~~
+cp .dir_colors ~
+~~~
+
+4.Setup Git
 
 ~~~
 sudo apt-get install git
 cp .git* ~
 ~~~
 
-3. Setup Vim
+5. Setup Vim
 
 ~~~
 sudo apt-get install vim
@@ -31,7 +37,7 @@ cp .vimrc ~
 vim +PluginInstall +qall
 ~~~
 
-4. Setup YouCompleteMe
+6. Setup YouCompleteMe
 
 ~~~
 sudo apt-get install build-essential cmake

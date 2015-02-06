@@ -5,6 +5,9 @@ if [ -n "$DISPLAY" -a "$TERM" == "xterm" ]; then
     export TERM=xterm-256color
 fi
 
+# Set directory colors (GNU ls)
+eval `dircolors ~/.dir_colors`
+
 # Set path
 export PATH=~/bin:$PATH
 
