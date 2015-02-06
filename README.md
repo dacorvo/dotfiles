@@ -1,4 +1,4 @@
-# dofiles
+# dotfiles
 These are just my dotfiles ...
 
 ##Quick setup
@@ -28,7 +28,7 @@ sudo apt-get install git
 cp .git* ~
 ~~~
 
-5. Setup Vim
+5.Setup Vim
 
 ~~~
 sudo apt-get install vim
@@ -37,7 +37,7 @@ cp .vimrc ~
 vim +PluginInstall +qall
 ~~~
 
-6. Setup YouCompleteMe
+6.Setup YouCompleteMe
 
 ~~~
 sudo apt-get install build-essential cmake
