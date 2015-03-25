@@ -26,25 +26,20 @@ call vundle#begin()
 " vundle will add the plugin folders to the runtimepath only after it has
 " seen the plugin's Bundle command.
 
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/vundle'
 " Auto completion
-Bundle 'Valloric/YouCompleteMe'
-" Solarized theme
-Bundle 'altercation/vim-colors-solarized'
+Plugin 'Valloric/YouCompleteMe'
 " Tern fo VIM
-Bundle 'marijnh/tern_for_vim'
+Plugin 'marijnh/tern_for_vim'
 " Syntastic syntax checker
-Bundle 'scrooloose/syntastic'
-" Markdown syntax
-Bundle 'godlygeek/tabular'
-Bundle 'plasticboy/vim-markdown'
+Plugin 'scrooloose/syntastic'
 
 "
 " Brief help
-" :BundleList          - list configured bundles
-" :BundleInstall(!)    - install(update) bundles
-" :BundleSearch(!) foo - search(or refresh cache first) for foo
-" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+" :VundleList          - list configured bundles
+" :VundleInstall(!)    - install(update) bundles
+" :VundleSearch(!) foo - search(or refresh cache first) for foo
+" :VundleClean(!)      - confirm(or auto-approve) removal of unused bundles
 "
 " see :h vundle for more details or wiki for FAQ
 " NOTE: comments after Bundle command are not allowed..
@@ -66,8 +61,10 @@ filetype plugin indent on
 " DISPLAY SETTINGS
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
+" Also modifies default syntastic highlighting.
 if &t_Co > 2 || has("gui_running")
   syntax on
+  highlight SyntasticError ctermbg=red guibg=red
 endif
 "if &t_Co == 256 || has('gui_running')
 if has('gui_running')
@@ -80,7 +77,7 @@ set matchtime=2         " reduces matching parent blink time from the 5[00]ms de
 set showmode            " show mode in status bar (insert/replace/...)
 set showcmd             " show typed command in status bar
 set ruler               " show cursor position in status bar
-set title               " show file in titlebar
+" set title               " show file in titlebar
 " set cursorline          " highlights the current line
 set winaltkeys=no       " turns of the Alt key bindings to the gui menu
 
@@ -137,9 +134,10 @@ set tabstop=4           " number of spaces a tab counts for
 set shiftwidth=4        " spaces for autoindents
 set softtabstop=4
 set shiftround          " makes indenting a multiple of shiftwidth
-set expandtab           " turn a tab into spaces
+" set expandtab           " turn a tab into spaces
 " allow backspace and cursor keys to cross line boundaries
 set whichwrap+=<,>,h,l
+set colorcolumn=80
 
 " backup settings
 set backup              " backup~ files
