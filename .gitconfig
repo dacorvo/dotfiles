@@ -1,12 +1,23 @@
 [user]
 	name = David Corvoysier
-	email = david.corvoysier@gmail.com
+	email = david.corvoysier@intel.com
 [core]
 	deltaBaseCacheLimit = 1G
 	excludesfile = ~/.gitignore
+	gitProxy = /home/david/bin/git-socks-wrapper
 [http]
 	sslverify = true
 [color]
 	ui = true
 [alias]
 	glog = log --pretty=oneline --abbrev-commit
+	graph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+[sendemail]
+	from = David Corvoysier <david.corvoysier@gmail.com>
+	smtpserver = smtp.gmail.com
+	smtpserverport = 587
+	smtpuser = david.corvoysier@gmail.com
+	smtpencryption = tls
+	suppresscc = self
+	confirm = auto
+	chainreplyto = false
