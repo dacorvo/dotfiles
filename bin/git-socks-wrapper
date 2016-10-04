@@ -10,5 +10,6 @@
 # Configuration.
 _proxy=xxx.xxx.xxx.xxx
 _proxyport=1080
-exec socat STDIO "SOCKS4:$_proxy:$1:$2,socksport=$_proxyport"
+#exec socat STDIO "SOCKS4:$_proxy:$1:$2,socksport=$_proxyport"
+exec socat STDIO "SOCKS4:$_proxy:$1:$2"
 
