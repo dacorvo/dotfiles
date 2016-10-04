@@ -29,10 +29,12 @@ call vundle#begin()
 Plugin 'gmarik/vundle'
 " Auto completion
 Plugin 'Valloric/YouCompleteMe'
-" Tern fo VIM
-Plugin 'marijnh/tern_for_vim'
 " Syntastic syntax checker
 Plugin 'scrooloose/syntastic'
+" Bitbake
+Plugin 'kergoth/vim-bitbake'
+" Vim sessions management
+Plugin 'tpope/vim-obsession'
 
 "
 " Brief help
@@ -59,27 +61,35 @@ filetype plugin indent on
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " DISPLAY SETTINGS
+
+" Syntax highlighting
+
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
-" Also modifies default syntastic highlighting.
 if &t_Co > 2 || has("gui_running")
   syntax on
-  highlight SyntasticError ctermbg=red guibg=red
 endif
-"if &t_Co == 256 || has('gui_running')
-if has('gui_running')
-  colorscheme solarized   " sets the colorscheme
-  set background=dark     " enable for dark terminals
-endif
+" Modify default syntastic highlighting.
+highlight SyntasticError ctermbg=red guibg=red ctermfg=white guifg=white
+" this makes sure that shell scripts are highlighted
+" as bash scripts and not sh scripts
+let g:is_posix = 1
+
+" Cursor
 set scrolloff=2         " 2 lines above/below cursor when scrolling
 set showmatch           " show matching bracket (briefly jump)
 set matchtime=2         " reduces matching parent blink time from the 5[00]ms def
+" set cursorline          " highlights the current line
+
+" Status bar
 set showmode            " show mode in status bar (insert/replace/...)
 set showcmd             " show typed command in status bar
 set ruler               " show cursor position in status bar
+" Always display the status line, even if only one window is displayed
+set laststatus=2
+
+" Title bar
 " set title               " show file in titlebar
-" set cursorline          " highlights the current line
-set winaltkeys=no       " turns of the Alt key bindings to the gui menu
 
 " When you type the first tab, it will complete as much as possible, the
 " second tab hit will provide a list, the third and subsequent tabs will cycle
@@ -96,10 +106,7 @@ map <F12> :set list!<CR>
 " The "longest" option makes completion insert the longest prefix of all
 " the possible matches; see :h completeopt
 set completeopt=menu,menuone,longest
-" Switch between buffers using F8/Shift-F8
-set switchbuf=useopen
-nnoremap <F8> :bprevious<CR>
-nnoremap <S-F8> :bnext<CR>
+
 " Switch between tabs using F3/F4
 nnoremap <F3> :tabprevious<CR>
 nnoremap <F4> :tabnext<CR>
@@ -110,13 +117,6 @@ set ignorecase " be case insensitive when searching
 set smartcase  " be case sensitive when input has a capital letter
 set incsearch  " show matches while typing
 set gdefault   " search/replace global by default
-
-" this makes sure that shell scripts are highlighted
-" as bash scripts and not sh scripts
-let g:is_posix = 1
-
-" Always display the status line, even if only one window is displayed
-set laststatus=2
 
 " Set the command window height to 2 lines, to avoid many cases of having to
 " "press <Enter> to continue"
@@ -189,9 +189,15 @@ else
   set clipboard+=unnamed
 endif
 
+set guioptions=aA
+
 " Jump to the last position when reopening a file
 if has("autocmd")
-  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+  au BufReadPost *
+	\ if line("'\"") > 1 && line("'\"") <= line("$") |
+	\ exe "normal! g'\"" |
+	\ endif
+  au BufWritePost .vimrc source $MYVIMRC
 endif
 
 " Convenient command to see the difference between the current buffer and the
@@ -208,8 +214,10 @@ autocmd BufNewFile,BufRead *.json set ft=javascript
 "------------------------------------------------------------
 " Mappings
 
+set winaltkeys=no       " turns of the Alt key bindings to the gui menu
+
 " On azerty keyboard, "," is more accessible than "\"
-:let mapleader = ","
+":let mapleader = ","
 
 " Map Y to act like D and C, i.e. to yank until EOL, rather than act as yy,
 " which is the default
@@ -224,3 +232,8 @@ nmap <silent> <C-Up> :wincmd k<CR>
 nmap <silent> <C-Down> :wincmd j<CR>
 nmap <silent> <C-Left> :wincmd h<CR>
 nmap <silent> <C-Right> :wincmd l<CR>
+
+" YouCompleteMe specific settings
+" do NOT request config file
+let g:ycm_confirm_extra_conf = 0
+
