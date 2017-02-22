@@ -134,7 +134,7 @@ set tabstop=4           " number of spaces a tab counts for
 set shiftwidth=4        " spaces for autoindents
 set softtabstop=4
 set shiftround          " makes indenting a multiple of shiftwidth
-" set expandtab           " turn a tab into spaces
+set expandtab           " turn a tab into spaces
 " allow backspace and cursor keys to cross line boundaries
 set whichwrap+=<,>,h,l
 set colorcolumn=80
