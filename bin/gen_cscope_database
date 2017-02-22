@@ -1,0 +1,23 @@
+#!/bin/bash
+# Usage: $0 /path/to/source
+
+# You can specify a different directory, default is `pwd`.
+# Only be sure to specify an absolute path.
+codeDir=${1:-$PWD}
+
+# Go to the root directory, to create the database with absolute names
+cd /
+
+# Add lines like "-o -name '*.your_extension'" if needed
+find $codeDir              \
+     \(                    \
+	     -name '*.c'       \
+         -o -name '*.h'    \
+         -o -name '*.cpp'  \
+         -o -name '*.hpp'  \
+         -o -name '*.py'   \
+	 \)                    \
+    -a ! -wholename '*build/*' > $codeDir/cscope.files
+
+# Build cross-references in the project's directories
+cd $codeDir && cscope -b -q -k
