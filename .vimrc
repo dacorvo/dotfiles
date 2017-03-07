@@ -139,6 +139,22 @@ set expandtab           " turn a tab into spaces
 set whichwrap+=<,>,h,l
 set colorcolumn=80
 
+" Python - PEP8
+au BufNewFile,BufRead *.py
+    \ set tabstop=4     |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4  |
+    \ set textwidth=79  |
+    \ set expandtab     |
+    \ set autoindent    |
+    \ set fileformat=unix
+
+" Web
+au BufNewFile,BufRead *.js, *.html, *.css
+    \ set tabstop=2     |
+    \ set softtabstop=2 |
+    \ set shiftwidth=2
+
 " backup settings
 set backup              " backup~ files
 set backupdir=~/.vim/backup//,~/.tmp//,~/tmp//,/var/tmp//,/tmp//
