@@ -157,3 +157,17 @@ alias git='LANGUAGE=en LANG=en_US.UTF-8 git'
 
 # Add git info to prompt
 source ~/bin/bash_gitprompt
+
+# Restore tmux session if any
+if test -z "$TMUX"; then
+  session_num=$(
+    tmux list-sessions |
+    grep -v attached |
+    grep -oP '^\d+:' |
+    grep -oP '^\d+' |
+    head -1
+  )
+  if test $session_num; then
+    exec tmux attach -t $session_num
+  fi
+fi
