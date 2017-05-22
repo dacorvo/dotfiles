@@ -8,10 +8,12 @@ fi
 # Set path
 PATH=~/bin:$PATH
 
-# X-tools
+# Add path to toolchain dirs
+if [ -d '~/x-tools' ]; then
 for dir in `ls ~/x-tools`; do
 PATH=~/x-tools/$dir/bin:$PATH
 done
+fi
 
 # remove duplicates from the path
 export PATH=`awk -F: '{for(i=1;i<=NF;i++){if(!($i in a)){a[$i];printf s$i;s=":"}}}'<<<$PATH`;
