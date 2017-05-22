@@ -1,6 +1,6 @@
 [user]
 	name = David Corvoysier
-	email = david.corvoysier@intel.com
+	email = david.corvoysier@gmail.com
 [core]
 	deltaBaseCacheLimit = 1G
 	excludesfile = ~/.gitignore
@@ -21,3 +21,5 @@
 	suppresscc = self
 	confirm = auto
 	chainreplyto = false
+[credential]
+	helper = cache --timeout=3600

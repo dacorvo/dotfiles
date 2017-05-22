@@ -35,6 +35,11 @@ Plugin 'scrooloose/syntastic'
 Plugin 'kergoth/vim-bitbake'
 " Vim sessions management
 Plugin 'tpope/vim-obsession'
+" Python PEP8
+Plugin 'vim-scripts/indentpython.vim'
+Plugin 'nvie/vim-flake8'
+" ipython console
+Plugin 'wmvanvliet/vim-ipython'
 
 "
 " Brief help
