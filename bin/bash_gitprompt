@@ -27,7 +27,7 @@ function parse_git_branch {
   fi
   # add an else if or two here if you want to get more specific
   if [[ ${git_status} =~ ${remote_pattern} ]]; then
-    if [[ ${BASH_REMATCH[1]} != "up-to-date with" ]]; then
+    if [[ ${BASH_REMATCH[1]} != "up to date with" ]]; then
       if [[ ${BASH_REMATCH[1]} == "ahead of" ]]; then
         remote="${YELLOW}↑"
       else
