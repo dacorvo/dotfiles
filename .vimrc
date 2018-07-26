@@ -31,6 +31,8 @@ Plugin 'gmarik/vundle'
 Plugin 'Valloric/YouCompleteMe'
 " Syntastic syntax checker
 Plugin 'scrooloose/syntastic'
+" File explorer
+Plugin 'scrooloose/nerdtree'
 " Bitbake
 Plugin 'kergoth/vim-bitbake'
 " Vim sessions management
@@ -248,6 +250,10 @@ nmap <silent> <C-Up> :wincmd k<CR>
 nmap <silent> <C-Down> :wincmd j<CR>
 nmap <silent> <C-Left> :wincmd h<CR>
 nmap <silent> <C-Right> :wincmd l<CR>
+
+" NERDTree
+map <F5> :NERDTreeToggle<CR>
+map <F6> :NERDTreeFind<CR>
 
 " YouCompleteMe specific settings
 " do NOT request config file
