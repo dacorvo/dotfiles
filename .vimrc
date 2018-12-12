@@ -12,55 +12,6 @@ set encoding=utf-8
 " Use Vim settings rather than vi ones
 set nocompatible
 
-" Needed for vundle, will be turned on after vundle inits
-filetype off
-
-" Setup vundle
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Vundle configuration "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" These need to come before the configuration options for the plugins since
-" vundle will add the plugin folders to the runtimepath only after it has
-" seen the plugin's Bundle command.
-
-Plugin 'gmarik/vundle'
-" Auto completion
-Plugin 'Valloric/YouCompleteMe'
-" Syntastic syntax checker
-Plugin 'scrooloose/syntastic'
-" File explorer
-Plugin 'scrooloose/nerdtree'
-" Bitbake
-Plugin 'kergoth/vim-bitbake'
-" Vim sessions management
-Plugin 'tpope/vim-obsession'
-" Python PEP8
-Plugin 'vim-scripts/indentpython.vim'
-Plugin 'nvie/vim-flake8'
-" ipython console
-Plugin 'wmvanvliet/vim-ipython'
-
-"
-" Brief help
-" :VundleList          - list configured bundles
-" :VundleInstall(!)    - install(update) bundles
-" :VundleSearch(!) foo - search(or refresh cache first) for foo
-" :VundleClean(!)      - confirm(or auto-approve) removal of unused bundles
-"
-" see :h vundle for more details or wiki for FAQ
-" NOTE: comments after Bundle command are not allowed..
-
-call vundle#end()
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                        turn on filetype plugins                         "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Enable detection, plugins and indenting in one step
-" This needs to come AFTER the Bundle commands!
 filetype plugin indent on
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -157,10 +108,20 @@ au BufNewFile,BufRead *.py
     \ set fileformat=unix
 
 " Web
-au BufNewFile,BufRead *.js, *.html, *.css
+au BufNewFile,BufRead *.js,*.html,*.css
     \ set tabstop=2     |
     \ set softtabstop=2 |
     \ set shiftwidth=2
+
+" Cpp
+au BufNewFile,BufRead *.cpp,*.h
+    \ set tabstop=2     |
+    \ set softtabstop=2 |
+    \ set shiftwidth=2  |
+    \ set textwidth=79  |
+    \ set expandtab     |
+    \ set autoindent    |
+    \ set fileformat=unix
 
 " backup settings
 set backup              " backup~ files
