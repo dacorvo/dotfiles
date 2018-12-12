@@ -34,6 +34,9 @@ export HISTIGNORE="exit:[bf]g"
 # make `vi` the default system editor
 export EDITOR='vi';
 
+# Get vimrc from dotfiles directory
+alias vi='vi -u ~/dotfiles/.vimrc'
+
 # make `man` use use `less` for paging and not clear the screen upon exit
 export MANPAGER='less -X';
 
