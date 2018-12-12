@@ -4,6 +4,5 @@ cat .bashrc >> ~/.bashrc
 cp .dircolors ~
 cp .git* ~
 cp .tmux.conf ~
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-cp .vimrc ~
-vim +PluginInstall +qall
+git submodule update --init --recursive
+cd vim/pack/plugins/start/YouCompleteMe && python3 install.py --clang-completer
