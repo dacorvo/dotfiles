@@ -1,0 +1,9 @@
+[submodule "vim/pack/dcorvoysier/start/nerdtree"]
+	path = vim/pack/dcorvoysier/start/nerdtree
+	url = https://github.com/scrooloose/nerdtree
+[submodule "vim/pack/dcorvoysier/start/syntastic"]
+	path = vim/pack/dcorvoysier/start/syntastic
+	url = https://github.com/vim-syntastic/syntastic
+[submodule "vim/pack/dcorvoysier/start/YouCompleteMe"]
+	path = vim/pack/dcorvoysier/start/YouCompleteMe
+	url = https://github.com/Valloric/YouCompleteMe
