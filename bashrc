@@ -35,7 +35,7 @@ export HISTIGNORE="exit:[bf]g"
 export EDITOR='vi';
 
 # Get vimrc from dotfiles directory
-alias vi='vi -u ~/dotfiles/.vimrc'
+alias vi='vi -u ~/dotfiles/vimrc'
 
 # make `man` use use `less` for paging and not clear the screen upon exit
 export MANPAGER='less -X';
