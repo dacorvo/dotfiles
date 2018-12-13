@@ -14,7 +14,7 @@ set nocompatible
 
 filetype plugin indent on
 
-set rtp+=~/dotfiles/vim
+set packpath+=~/dotfiles/vim
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                            General settings                             "
