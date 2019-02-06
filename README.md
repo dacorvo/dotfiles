@@ -1,47 +1,47 @@
 # dotfiles
 These are just my dotfiles ...
 
-##Quick setup
+## Quick setup
 
-1.Install utility scripts
+1. Install utility scripts
 
 ~~~
 cp -r bin ~
 ~~~
 
-2.Update .bashrc
+2. Update .bashrc
 
 ~~~
 cat .bashrc >> ~/.bashrc
 ~~~
 
-3.Set dir colors
+3. Set dir colors
 
 ~~~
 cp .dircolors ~
 ~~~
 
-4.Setup Git
+4. Setup Git
 
 ~~~
 sudo apt-get install git
 cp .git* ~
 ~~~
 
-5.Setup Vim
+5. Setup tmux
 
 ~~~
-sudo apt-get install vim
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-cp .vimrc ~
-vim +PluginInstall +qall
+cp .tmux.conf ~
 ~~~
 
-6.Setup YouCompleteMe
+6. Setup Vim plugins (as submodules)
 
 ~~~
-sudo apt-get install build-essential cmake
-sudo apt-get install python-dev
-cd ~/.vim/bundle/YouCompleteMe
-./install.sh --clang-completer
+git submodule update --init --recursive
+~~~
+
+7. Setup YouCompleteMe
+
+~~~
+cd vim/pack/dcorvoysier/start/YouCompleteMe && python3 install.py --clang-completer
 ~~~
