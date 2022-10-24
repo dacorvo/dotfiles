@@ -4,7 +4,6 @@
 [core]
 	deltaBaseCacheLimit = 1G
 	excludesfile = ~/.gitignore
-#	gitProxy = /home/david/bin/git-socks-wrapper
 [http]
 	sslverify = true
 [color]
@@ -23,3 +22,7 @@
 	chainreplyto = false
 [credential]
 	helper = cache --timeout=3600
+[pull]
+	ff = only
+[init]
+	defaultBranch = main
