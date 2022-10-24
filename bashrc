@@ -18,11 +18,6 @@ fi
 # remove duplicates from the path
 export PATH=`awk -F: '{for(i=1;i<=NF;i++){if(!($i in a)){a[$i];printf s$i;s=":"}}}'<<<$PATH`;
 
-# Set proxy
-
-# Always use tsocks if available
-#which tsocks &> /dev/null && . tsocks -on
-
 # Set history
 export HISTSIZE=32768;
 export HISTFILESIZE=$HISTSIZE;
