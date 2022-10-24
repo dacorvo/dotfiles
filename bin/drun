@@ -1,0 +1,20 @@
+#!/bin/bash
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 <docker_image>";
+    exit 1;
+fi
+docker_image=${1}
+
+# Run docker image
+set -e
+docker run -it --rm \
+        -v ~:/home/$(id -un) \
+        -v ~/.keras:/tmp/.keras \
+        -u $(id -u):$(id -g) \
+        -e HOME=/home/$USER \
+        -e PATH=$PATH:/home/$USER/.local/bin \
+        -w /home/$USER \
+        --gpus all \
+        --privileged --net=host --ipc=host \
+        --ulimit memlock=-1 --ulimit stack=67108864 \
+        ${docker_image}
