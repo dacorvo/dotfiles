@@ -1,0 +1,52 @@
+{
+  "permissions": {
+    "defaultMode": "plan",
+    "allow": [
+      "Bash(git status:*)",
+      "Bash(git log:*)",
+      "Bash(git diff:*)",
+      "Bash(git show:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git stash:*)",
+      "Bash(git pull:*)",
+      "Bash(git fetch:*)",
+      "Bash(git checkout:*)",
+      "Bash(git rebase:*)",
+      "Bash(git cherry-pick:*)",
+      "Bash(git mv:*)",
+      "Bash(git reset:*)",
+      "Bash(make:*)",
+      "Bash(python:*)",
+      "Bash(gh run:*)",
+      "Bash(gh pr:*)",
+      "mcp__plugin_context-mode_context-mode__ctx_batch_execute",
+      "mcp__plugin_context-mode_context-mode__ctx_search",
+      "mcp__plugin_context-mode_context-mode__ctx_execute",
+      "Read",
+      "Edit",
+      "Write"
+    ],
+    "ask": [
+      "Bash(rm:*)",
+      "Bash(git push:*)",
+      "Bash(git branch -d:*)",
+      "Bash(git branch -D:*)"
+    ],
+    "additionalDirectories": [
+      "/tmp"
+    ]
+  },
+  "enabledPlugins": {
+    "context-mode@context-mode": true
+  },
+  "extraKnownMarketplaces": {
+    "context-mode": {
+      "source": {
+        "source": "github",
+        "repo": "mksglu/context-mode"
+      }
+    }
+  },
+  "effortLevel": "high"
+}
