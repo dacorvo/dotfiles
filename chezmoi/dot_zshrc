@@ -3,5 +3,11 @@ ZSH_THEME="robbyrussell"
 plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
+setopt PROMPT_SUBST
+ZSH_THEME_GIT_PROMPT_PREFIX=" %{$fg[blue]%}["
+ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}]"
+ZSH_THEME_GIT_PROMPT_DIRTY=" %{$fg[red]%}✗"
+ZSH_THEME_GIT_PROMPT_CLEAN=""
 alias ll="ls -l"
 export PATH="$HOME/.local/bin:$PATH"
+PROMPT='${VIRTUAL_ENV:+%F{magenta}(${VIRTUAL_ENV:t})%f }%F{green}%n@%m%f:%F{blue}%~%f$(git_prompt_info)%# '

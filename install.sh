@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source_dir="$repo_root/chezmoi"
-
 install_zsh() {
 	if command -v zsh >/dev/null 2>&1; then
 		return
@@ -34,7 +31,7 @@ install_zsh() {
 	esac
 
 	echo "zsh is not installed and no supported package manager was found." >&2
-	echo "Install zsh manually, then rerun setup.sh." >&2
+	echo "Install zsh manually, then rerun the bootstrap." >&2
 	exit 1
 }
 
@@ -53,6 +50,8 @@ install_chezmoi() {
 	export PATH="$HOME/.local/bin:$PATH"
 }
 
+repo_url="https://github.com/dacorvo/dotfiles.git"
+
 install_zsh
 install_chezmoi
-chezmoi -S "$source_dir" apply --force
+chezmoi init --apply "$repo_url"

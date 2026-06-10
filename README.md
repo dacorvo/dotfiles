@@ -3,20 +3,19 @@ These are my dotfiles, managed with chezmoi.
 
 ## Quick setup
 
-1. Run the bootstrap script from the repo root.
+1. Install directly from GitHub.
 
 ~~~
-./setup.sh
+curl -fsLS https://raw.githubusercontent.com/dacorvo/dotfiles/master/install.sh | bash
 ~~~
 
 This installs zsh if needed, installs chezmoi if needed, and applies the managed
-source tree under [chezmoi/](chezmoi).
+source tree directly from the repo.
 
 ## Reapply changes
 
-Re-run the same command whenever you want to reapply the current repo state.
-If chezmoi is already installed, the bootstrap simply reuses it.
+Use chezmoi directly after the initial install.
 
 ~~~
-./setup.sh
+chezmoi update
 ~~~
