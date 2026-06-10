@@ -11,3 +11,7 @@ add-zsh-hook precmd vcs_info
 alias ll="ls -l"
 export PATH="$HOME/.local/bin:$PATH"
 PROMPT='${VIRTUAL_ENV:+%F{magenta}(${VIRTUAL_ENV:t})%f }%F{green}%n@%m%f:%F{blue}%~%f${vcs_info_msg_0_}%# '
+
+# Per-host extras live in ~/.bash_aliases (unmanaged), shared with bash during
+# the transition. Sourced last so it can extend or override anything above.
+[ -r "$HOME/.bash_aliases" ] && source "$HOME/.bash_aliases"

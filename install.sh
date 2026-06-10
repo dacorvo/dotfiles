@@ -50,8 +50,32 @@ install_chezmoi() {
 	export PATH="$HOME/.local/bin:$PATH"
 }
 
+set_login_shell_zsh() {
+	local zsh_path target_user
+	zsh_path="$(command -v zsh)" || return 0
+	target_user="$(id -un)"
+
+	# Already logging in with zsh? Nothing to do.
+	case "${SHELL:-}" in
+		*/zsh) return 0 ;;
+	esac
+
+	# chsh only accepts shells listed in /etc/shells.
+	if ! grep -qxF "$zsh_path" /etc/shells 2>/dev/null; then
+		echo "$zsh_path" | sudo tee -a /etc/shells >/dev/null 2>&1 || true
+	fi
+
+	if sudo chsh -s "$zsh_path" "$target_user"; then
+		echo "Login shell set to $zsh_path (takes effect on next login)."
+	else
+		echo "Could not change the login shell automatically." >&2
+		echo "Run manually:  sudo chsh -s $zsh_path $target_user" >&2
+	fi
+}
+
 repo_url="https://github.com/dacorvo/dotfiles.git"
 
 install_zsh
 install_chezmoi
 chezmoi init --apply "$repo_url"
+set_login_shell_zsh
