@@ -1,3 +1,6 @@
+# Completion system (oh-my-zsh used to initialize this; we do it ourselves now).
+autoload -Uz compinit && compinit
+
 # Git branch/dirty info in the prompt via zsh's built-in vcs_info (no oh-my-zsh).
 autoload -Uz vcs_info add-zsh-hook
 setopt prompt_subst
