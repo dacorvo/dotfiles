@@ -1,0 +1,59 @@
+" Minimal fallback Vim config.
+scriptencoding utf-8
+set encoding=utf-8
+set nocompatible
+filetype plugin indent on
+
+set scrolloff=2
+set showmatch
+set matchtime=2
+set showmode
+set showcmd
+set ruler
+set laststatus=2
+set wildmode=longest,list,full
+set wildmenu
+set completeopt=menu,menuone,longest
+set hlsearch
+set ignorecase
+set smartcase
+set incsearch
+set cmdheight=2
+set autoindent
+set copyindent
+set smarttab
+set magic
+set bs=indent,eol,start
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set shiftround
+set expandtab
+set whichwrap+=<,>,h,l
+set colorcolumn=80
+set backup
+set backupdir=~/.vim/backup//,~/.tmp//,~/tmp//,/var/tmp//,/tmp//
+set directory=~/.vim/backup//,~/.tmp//,~/tmp//,/var/tmp//,/tmp//
+set undolevels=1000
+set undofile
+set undodir=~/.vim/backup//,~/.tmp//,~/tmp//,/var/tmp//,/tmp//
+set fileformat=unix
+set fileformats=unix,dos,mac
+set viminfo='20,\"500
+set hidden
+set history=1000
+set autoread
+if has('mouse')
+  set mouse=a
+  set mousemodel=popup_setpos
+endif
+set pastetoggle=<F7>
+set shortmess=a
+set clipboard+=unnamed
+
+if has("autocmd")
+  au BufReadPost *
+    \ if line("'\"") > 1 && line("'\"") <= line("$") |
+    \ exe "normal! g'\"" |
+    \ endif
+endif

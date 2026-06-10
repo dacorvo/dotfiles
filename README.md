@@ -1,47 +1,22 @@
 # dotfiles
-These are just my dotfiles ...
+These are my dotfiles, managed with chezmoi.
 
 ## Quick setup
 
-1. Install utility scripts
+1. Run the bootstrap script from the repo root.
 
 ~~~
-cp -r bin ~
+./setup.sh
 ~~~
 
-2. Update .bashrc
+This installs zsh if needed, installs chezmoi if needed, and applies the managed
+source tree under [chezmoi/](chezmoi).
+
+## Reapply changes
+
+Re-run the same command whenever you want to reapply the current repo state.
+If chezmoi is already installed, the bootstrap simply reuses it.
 
 ~~~
-cat .bashrc >> ~/.bashrc
-~~~
-
-3. Set dir colors
-
-~~~
-cp .dircolors ~
-~~~
-
-4. Setup Git
-
-~~~
-sudo apt-get install git
-cp .git* ~
-~~~
-
-5. Setup tmux
-
-~~~
-cp .tmux.conf ~
-~~~
-
-6. Setup Vim plugins (as submodules)
-
-~~~
-git submodule update --init --recursive
-~~~
-
-7. Setup YouCompleteMe
-
-~~~
-cd vim/pack/dcorvoysier/start/YouCompleteMe && python3 install.py --clang-completer
+./setup.sh
 ~~~
