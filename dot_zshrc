@@ -1,13 +1,13 @@
-export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME="robbyrussell"
-plugins=(git)
+# Git branch/dirty info in the prompt via zsh's built-in vcs_info (no oh-my-zsh).
+autoload -Uz vcs_info add-zsh-hook
+setopt prompt_subst
+zstyle ':vcs_info:git:*' check-for-changes true
+zstyle ':vcs_info:git:*' unstagedstr ' %F{red}✗%f'
+zstyle ':vcs_info:git:*' stagedstr   ' %F{red}✗%f'
+zstyle ':vcs_info:git:*' formats       ' %F{blue}[%b%u%c%F{blue}]%f'
+zstyle ':vcs_info:git:*' actionformats ' %F{blue}[%b|%a%u%c%F{blue}]%f'
+add-zsh-hook precmd vcs_info
 
-source $ZSH/oh-my-zsh.sh
-setopt PROMPT_SUBST
-ZSH_THEME_GIT_PROMPT_PREFIX=" %{$fg[blue]%}["
-ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}]"
-ZSH_THEME_GIT_PROMPT_DIRTY=" %{$fg[red]%}✗"
-ZSH_THEME_GIT_PROMPT_CLEAN=""
 alias ll="ls -l"
 export PATH="$HOME/.local/bin:$PATH"
-PROMPT='${VIRTUAL_ENV:+%F{magenta}(${VIRTUAL_ENV:t})%f }%F{green}%n@%m%f:%F{blue}%~%f$(git_prompt_info)%# '
+PROMPT='${VIRTUAL_ENV:+%F{magenta}(${VIRTUAL_ENV:t})%f }%F{green}%n@%m%f:%F{blue}%~%f${vcs_info_msg_0_}%# '
