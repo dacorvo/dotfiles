@@ -1,16 +1,21 @@
 # Git branch/dirty info in the prompt via zsh's built-in vcs_info (no oh-my-zsh).
 autoload -Uz vcs_info add-zsh-hook
 setopt prompt_subst
+
+# We render the active virtualenv ourselves (in PROMPT below), so tell venv's
+# activate not to prepend its own "(venv)" — otherwise it shows up twice.
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+
 zstyle ':vcs_info:git:*' check-for-changes true
-zstyle ':vcs_info:git:*' unstagedstr ' %F{red}✗%f'
-zstyle ':vcs_info:git:*' stagedstr   ' %F{red}✗%f'
-zstyle ':vcs_info:git:*' formats       ' %F{blue}[%b%u%c%F{blue}]%f'
-zstyle ':vcs_info:git:*' actionformats ' %F{blue}[%b|%a%u%c%F{blue}]%f'
+zstyle ':vcs_info:git:*' unstagedstr ' %F{yellow}✗%f'
+zstyle ':vcs_info:git:*' stagedstr   ' %F{yellow}✗%f'
+zstyle ':vcs_info:git:*' formats       '%F{blue}(%F{red}%b%u%c%F{blue})%f'
+zstyle ':vcs_info:git:*' actionformats '%F{blue}(%F{red}%b%F{blue}|%F{red}%a%u%c%F{blue})%f'
 add-zsh-hook precmd vcs_info
 
 alias ll="ls -l"
 export PATH="$HOME/.local/bin:$PATH"
-PROMPT='${VIRTUAL_ENV:+%F{magenta}(${VIRTUAL_ENV:t})%f }%F{green}%n@%m%f:%F{blue}%~%f${vcs_info_msg_0_}%# '
+PROMPT='%B%F{magenta}${VIRTUAL_ENV:+(${VIRTUAL_ENV:t})}%f%F{cyan}%~%f${vcs_info_msg_0_} %#%b '
 
 # Per-host extras live in ~/.bash_aliases (unmanaged), shared with bash during
 # the transition. Sourced last so it can extend or override anything above.
