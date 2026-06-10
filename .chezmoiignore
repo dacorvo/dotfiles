@@ -1,0 +1,10 @@
+# The chezmoi source root is now the repo root, so chezmoi would try to copy
+# every non-dotfile here into $HOME. Ignore the repo infrastructure that must
+# NOT be applied. (Files starting with "." — .git, .gitignore — are ignored
+# by chezmoi automatically.)
+README.md
+install.sh
+bin
+bin/**
+vim
+vim/**
