@@ -16,6 +16,12 @@
             "command": "bash \"$HOME/.claude/hooks/archive-session.sh\"",
             "timeout": 60,
             "statusMessage": "Archiving session to HF bucket"
+          },
+          {
+            "type": "command",
+            "command": "bash \"$HOME/.claude/hooks/funes-sync.sh\"",
+            "timeout": 15,
+            "statusMessage": "Indexing session into funes memory"
           }
         ]
       }
