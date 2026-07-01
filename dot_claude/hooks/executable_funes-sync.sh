@@ -93,18 +93,18 @@ worker() {
 
     # Push only when a remote is attached — otherwise `funes push` errors on "no
     # active remote", which is expected on a local-only host, not a failure.
-    if [ -f "$FUNES_JSON" ] && grep -q '"remote"' "$FUNES_JSON"; then
-        log "push: start"
-        "$funes" push >>"$LOG" 2>&1
-        rc=$?
-        case "$rc" in
-            0) log "push: ok" ;;
-            2) log "push: WARN — secrets held back; run 'funes scrub', then it publishes next run" ;;
-            *) log "push: FAILED (exit $rc)" ;;
-        esac
-    else
-        log "push: skipped (no remote attached — 'funes use <org>/<repo>' to enable)"
-    fi
+    # if [ -f "$FUNES_JSON" ] && grep -q '"remote"' "$FUNES_JSON"; then
+    #     log "push: start"
+    #     "$funes" push >>"$LOG" 2>&1
+    #     rc=$?
+    #     case "$rc" in
+    #         0) log "push: ok" ;;
+    #         2) log "push: WARN — secrets held back; run 'funes scrub', then it publishes next run" ;;
+    #         *) log "push: FAILED (exit $rc)" ;;
+    #     esac
+    # else
+    #     log "push: skipped (no remote attached — 'funes use <org>/<repo>' to enable)"
+    # fi
 }
 
 # Worker mode (re-exec): do the real work, already detached from the session.
