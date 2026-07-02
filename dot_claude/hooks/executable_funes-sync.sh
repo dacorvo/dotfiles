@@ -42,7 +42,7 @@ find_bin() {
 lock_mtime() { stat -c %Y "$1" 2>/dev/null || stat -f %m "$1" 2>/dev/null || echo 0; }
 
 worker() {
-    local funes rc holder mtime now stolen
+    local funes rc holder mtime now stolen remote
     funes="$(find_bin funes || true)"
     if [ -z "$funes" ] || [ ! -x "$funes" ]; then
         log "ABORT: funes binary not found on PATH or common locations; skipping."
@@ -91,20 +91,23 @@ worker() {
         return
     fi
 
-    # Push only when a remote is attached — otherwise `funes push` errors on "no
-    # active remote", which is expected on a local-only host, not a failure.
-    # if [ -f "$FUNES_JSON" ] && grep -q '"remote"' "$FUNES_JSON"; then
-    #     log "push: start"
-    #     "$funes" push >>"$LOG" 2>&1
-    #     rc=$?
-    #     case "$rc" in
-    #         0) log "push: ok" ;;
-    #         2) log "push: WARN — secrets held back; run 'funes scrub', then it publishes next run" ;;
-    #         *) log "push: FAILED (exit $rc)" ;;
-    #     esac
-    # else
-    #     log "push: skipped (no remote attached — 'funes use <org>/<repo>' to enable)"
-    # fi
+    # Push only when a remote is attached, naming it explicitly so the target is
+    # unambiguous in the log and immune to the active store changing mid-run. A first
+    # push to a store this index shares no chunks with is refused here (the overlap
+    # guard fails closed off a terminal) — clear it once by hand: `funes push <repo>`.
+    remote="$(sed -n 's/.*"remote"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' "$FUNES_JSON" 2>/dev/null)"
+    if [ -n "$remote" ]; then
+        log "push: start ($remote)"
+        "$funes" push "$remote" >>"$LOG" 2>&1
+        rc=$?
+        case "$rc" in
+            0) log "push: ok" ;;
+            2) log "push: WARN — secrets held back; run 'funes scrub', then it publishes next run" ;;
+            *) log "push: FAILED (exit $rc)" ;;
+        esac
+    else
+        log "push: skipped (no remote attached — 'funes use <org>/<repo>' to enable)"
+    fi
 }
 
 # Worker mode (re-exec): do the real work, already detached from the session.
