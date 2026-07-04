@@ -8,6 +8,30 @@
   "effortLevel": "max",
   "cleanupPeriodDays": 3650,
   "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$HOME/.claude/hooks/funes-index.sh\"",
+            "timeout": 15,
+            "statusMessage": "Indexing turn into funes memory"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$HOME/.claude/hooks/funes-push.sh\"",
+            "timeout": 15,
+            "statusMessage": "Publishing funes memory"
+          }
+        ]
+      }
+    ],
     "SessionEnd": [
       {
         "hooks": [
@@ -19,9 +43,9 @@
           },
           {
             "type": "command",
-            "command": "bash \"$HOME/.claude/hooks/funes-sync.sh\"",
+            "command": "bash \"$HOME/.claude/hooks/funes-push.sh\"",
             "timeout": 15,
-            "statusMessage": "Indexing session into funes memory"
+            "statusMessage": "Publishing funes memory"
           }
         ]
       }
