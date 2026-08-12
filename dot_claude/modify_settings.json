@@ -1,0 +1,54 @@
+#!/usr/bin/env python3
+# Assert the managed Claude Code settings, preserving keys other tools own.
+#
+# chezmoi pipes the current ~/.claude/settings.json in on stdin and writes our stdout back.
+# `funes add claude` makes the `claude plugin` CLI write `enabledPlugins` and
+# `extraKnownMarketplaces` into that same file, so managing it as a plain file would
+# un-register the funes plugin on every apply. Only the keys below are asserted; anything
+# else already on the host passes through. That CLI also drops top-level keys it doesn't
+# recognise (it ate `effortLevel`), which asserting them here repairs.
+
+import json
+import sys
+
+MANAGED = {
+    "permissions": {
+        "allow": [
+            "WebFetch(domain:github.com)",
+            "WebFetch(domain:raw.githubusercontent.com)",
+        ]
+    },
+    "effortLevel": "max",
+    "cleanupPeriodDays": 3650,
+    "hooks": {
+        "SessionEnd": [
+            {
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": 'bash "$HOME/.claude/hooks/archive-session.sh"',
+                        "timeout": 60,
+                        "statusMessage": "Archiving session to HF bucket",
+                    }
+                ]
+            }
+        ]
+    },
+}
+
+raw = sys.stdin.read().strip()
+try:
+    host = json.loads(raw) if raw else {}
+except json.JSONDecodeError:
+    host = {}
+if not isinstance(host, dict):
+    host = {}
+
+# Managed keys first so the output order is stable whatever the host file looked like.
+settings = dict(MANAGED)
+for key, value in host.items():
+    if key not in MANAGED:
+        settings[key] = value
+
+json.dump(settings, sys.stdout, indent=2)
+sys.stdout.write("\n")
