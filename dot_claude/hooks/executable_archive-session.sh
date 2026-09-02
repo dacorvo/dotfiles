@@ -11,6 +11,15 @@
 
 set -uo pipefail
 
+# SessionEnd hooks cannot block the session (documented) and the CLI may cancel them at
+# exit — observed since 2026-07-05: the archive never ran again. Hand the real work to a
+# disowned child and return immediately; the child survives the CLI. Nothing is read from
+# stdin (the payload is unused, and a stdin the CLI never closes would wedge the wrapper).
+if [ "${1:-}" != "--detached" ]; then
+    nohup bash "$0" --detached >/dev/null 2>&1 </dev/null &
+    exit 0
+fi
+
 # Detectors trusted enough to block on even when unverified — a revoked-but-still-
 # present token (e.g. the leaked HuggingFace one) must never slip through. Match is
 # case-insensitive. Add structured, low-false-positive credential types here.
@@ -35,6 +44,15 @@ LOG="$HOME/.claude/hooks/archive-session.log"
 
 log() { printf '%s %s\n' "$(date +%Y-%m-%dT%H:%M:%S%z)" "$*" >>"$LOG"; }
 
+# One archive at a time — concurrent session ends would trufflehog and upload the same
+# files. A lock older than an hour is a corpse from a killed run; reap it, never skip forever.
+LOCK="$HOME/.claude/hooks/archive-session.lock"
+if ! mkdir "$LOCK" 2>/dev/null; then
+    find "$LOCK" -maxdepth 0 -mmin +60 -exec rmdir {} \; 2>/dev/null
+    mkdir "$LOCK" 2>/dev/null || exit 0
+fi
+trap 'rmdir "$LOCK" 2>/dev/null' EXIT
+
 # All prerequisites must be present. A missing trufflehog must never degrade into
 # an unscanned upload, so bail out entirely rather than skip the secret gate.
 for tool in "$HF" "$TRUFFLEHOG" "$JQ"; do
@@ -43,8 +61,6 @@ for tool in "$HF" "$TRUFFLEHOG" "$JQ"; do
         exit 0
     fi
 done
-
-cat >/dev/null  # drain hook JSON on stdin (unused: we gate the whole upload set)
 
 # Bucket namespace follows the authenticated HF account, so the hook is portable
 # across hosts and users.
