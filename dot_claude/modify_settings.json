@@ -19,6 +19,7 @@ MANAGED = {
         ]
     },
     "effortLevel": "max",
+    "env": {"CLAUDE_CODE_DISABLE_FEEDBACK_SURVEY": "1"},
     "cleanupPeriodDays": 3650,
     "hooks": {
         "SessionEnd": [
