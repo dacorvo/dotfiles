@@ -35,6 +35,7 @@ Investigate with discipline and drive it yourself — don't wait to be steered t
 - Keep changes scoped to the request; don't refactor unrelated code unless asked.
 - Clean up only the orphans your change creates; flag pre-existing dead code rather than deleting it.
 - Comment only non-obvious "why", never to restate what the code already says.
+- Keep a comment at the abstraction level of what it documents: say what the thing is, never who calls it or what they do with the answer.
 - Comments describe the code as it stands now, never the edit that produced it — no narration of what changed, what it used to be, or why you touched it ("previously…", "now uses…", "changed to…", "new approach"). That history belongs in the commit message, not the source.
 - Prefer simple, readable solutions over clever ones; build only what's asked — no speculative abstractions, flexibility, or config.
 
