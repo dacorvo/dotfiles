@@ -43,6 +43,7 @@ Investigate with discipline and drive it yourself — don't wait to be steered t
 - Use Conventional Commits: `feat:`, `fix:`, `chore:`, `refactor:`, `docs:`, `test:`.
 - Subject line short and imperative; put the "why" in the body when it isn't obvious.
 - Don't commit, push, or create branches unless I ask.
+- Remove any git worktree you create with `git worktree remove` once its work is committed, unless told to keep it.
 - During development, use fixup commits to keep history linear and logical.
 - During review, add `review:` commits and never rewrite history.
 
