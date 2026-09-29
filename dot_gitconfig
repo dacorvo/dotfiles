@@ -1,0 +1,10 @@
+[user]
+	email = david@huggingface.co
+	name = David Corvoysier
+[core]
+	editor = vim
+	excludesfile = ~/.gitignore
+[alias]
+	glog = log --pretty=oneline --abbrev-commit
+[push]
+	autoSetupRemote = true
