@@ -4,9 +4,9 @@
 # chezmoi pipes the current ~/.claude/settings.json in on stdin and writes our stdout back.
 # `funes add claude` makes the `claude plugin` CLI write `enabledPlugins` and
 # `extraKnownMarketplaces` into that same file, so managing it as a plain file would
-# un-register the funes plugin on every apply. Only the keys below are asserted; anything
-# else already on the host passes through. That CLI also drops top-level keys it doesn't
-# recognise (it ate `effortLevel`), which asserting them here repairs.
+# un-register the funes plugin on every apply. Only the keys below are asserted or removed, and
+# anything else already on the host passes through. That CLI also drops top-level keys it
+# doesn't recognise, which asserting them here repairs.
 
 import json
 import sys
@@ -18,8 +18,14 @@ MANAGED = {
             "WebFetch(domain:raw.githubusercontent.com)",
         ]
     },
-    "effortLevel": "max",
-    "env": {"CLAUDE_CODE_DISABLE_FEEDBACK_SURVEY": "1"},
+    "env": {
+        "CLAUDE_CODE_DISABLE_FEEDBACK_SURVEY": "1",
+        # `max` persists only through this variable, which outranks `/effort`, `--effort`,
+        # `effortLevel` and `modelSettings`.
+        "CLAUDE_CODE_EFFORT_LEVEL": "max",
+    },
+    "autoMemoryEnabled": False,
+    "spinnerVerbs": {"mode": "replace", "verbs": ["Working"]},
     "cleanupPeriodDays": 3650,
     "hooks": {
         "SessionEnd": [
@@ -37,6 +43,9 @@ MANAGED = {
     },
 }
 
+# Keys no host keeps: the model stays Claude Code's default, and `effortLevel` cannot hold `max`.
+UNSET = ("model", "effortLevel")
+
 raw = sys.stdin.read().strip()
 try:
     host = json.loads(raw) if raw else {}
@@ -48,7 +57,7 @@ if not isinstance(host, dict):
 # Managed keys first so the output order is stable whatever the host file looked like.
 settings = dict(MANAGED)
 for key, value in host.items():
-    if key not in MANAGED:
+    if key not in MANAGED and key not in UNSET:
         settings[key] = value
 
 json.dump(settings, sys.stdout, indent=2)
